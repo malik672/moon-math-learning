@@ -1,0 +1,159 @@
+1. The absolute value of an integer is the non-negative integer of that number regardless of it'sn sign
+so for -123, 27 and 0 the answer wil be
+
+2. finding the factors for 30030 is finding it's smallest prime factors which are 2,3,5,7,13
+
+3. 4x + 21 = 5, defined a set of natural numbers, solving the equation we get x = -4;
+set of natural numbers: since natural numbers are positive integers then there are no solutions for x
+set of integers: -4
+
+4. let's consider the equation: 2x^3 − x^2 − 2x = −1
+- set of natural numbers {1,2,3}
+when x = 1, the answer is zero so x= 1 is a solution, when x = 2 the equation gives us 9 so it's wrong
+when x = 3, the answer is 40, so x = 3 is not a solution.
+- set of integers {0, -1}
+when x = 0, the equation gives us 1 which is not a solution
+when x = -1, the equation gives us 0, so -1 is a solution
+- set of rational
+for the rational numbers set we will use rational root theorem which states that any rational solution of a polynomial equation with integer coefficients is a fraction 
+𝑝/𝑞, where 𝑝 is a factor of the constant term and q is a factor of the leading coefficient
+for the equation the leading coefficient is 2 and the constant is 1
+possible root: 1/2, 1 and -1 (already know they are roots)
+
+5. Finding m and r such that a = m . b + r with r ∈ N for the following pairs:
+- (a, b) = (27, 5)
+27 / 5 = 5 r 2
+- (a, b) = (27, -5)
+27 / -5 = -5 r 2
+- (a, b) = (127, 0)
+undefined
+(a, b) = (-1687, 11)
+-1687 / 11 = -154 r 3
+(a, b) = (0, 7)
+0 / 7 = 0 r 0
+
+6. a rust algorithm that computes long integer(wriiten by gpt, too lazy to write it):
+fn integer_long_division(dividend: i32, divisor: i32) -> Result<(i32, i32), String> {
+    // Handle division by zero
+    if divisor == 0 {
+        return Err("Divisor cannot be zero.".to_string());
+    }
+    
+    // Determine the sign of the result
+    let negative_result = (dividend < 0) ^ (divisor < 0);
+    
+    // Use absolute values for the division process
+    let mut dividend = dividend.abs();
+    let divisor = divisor.abs();
+    
+    // Initialize quotient and remainder
+    let mut quotient = 0;
+    let mut remainder = 0;
+    
+    // Perform long division bit by bit
+    for i in (0..dividend.leading_zeros()).rev() {
+        // Shift remainder to the left and add the current bit of the dividend
+        remainder = (remainder << 1) | ((dividend >> i) & 1);
+        
+        // If remainder is greater than or equal to divisor, update quotient and remainder
+        if remainder >= divisor {
+            remainder -= divisor;
+            quotient = (quotient << 1) | 1;
+        } else {
+            quotient <<= 1;
+        }
+    }
+    
+    // Adjust the sign of the quotient if necessary
+    if negative_result {
+        quotient = -quotient;
+    }
+    
+    Ok((quotient, remainder))
+}
+
+7. an algorithm to compute binary representation from an integer
+fn integer_to_binary(mut n: u32) -> String {
+    if n == 0 {
+        return "0".to_string();
+    }
+    
+    let mut binary_representation = String::new();
+    
+    while n > 0 {
+        // Prepend the remainder (0 or 1) to the binary representation string
+        binary_representation.insert(0, if n % 2 == 0 { '0' } else { '1' });
+        n /= 2;
+    }
+    
+    binary_representation
+}
+
+8. compute the extended euclidean division on these pairs
+- gcd(45, 10)
+- euclidean division: 
+  45 = 4 . 10 + 5
+  10 = 2 . 5 + 0
+  gcd(45, 10) = 5
+
+- extended euclidean algorithm:
+  remember gcd(a, b) = s . a + t . b; 
+  5 = 45 + (-4) . 10;
+  s = 1 and t = -4
+
+- gcd(13, 11)
+- euclidean algorithm
+  13 = 11 . 1 + 2
+  11 = 5  . 2 + 1
+
+- exteded euclidean algorithm
+  gcd(a, b) = s . a + t . b;
+  1 = 11 - 5 . 2 
+  2 = 13 - 1 . 11
+  1 = 11 - 5 (13 - 1 . 11)
+  11 - 5 . 13 + 5 . 11 = 6 . 11 - 5 . 13
+  s =  -5, t = 6
+
+- gcd(13,12)
+  13 = 1 . 12 + 1
+  12 = 12 . 1 + 0
+
+- extended euclidean algorithm
+  s = 1 and t = -1
+  
+9. well since n is a natural number and it's greateer than p which is a prime number, then obviously the gcd is 1
+
+10.Find all numbers k ∈ N with 0 ≤ k ≤ 100 such that gcd(100, k) = 5.
+5,15,35,45,55,65,85,95
+
+11.Too long to text, just use gpt anyway using the properties of gcd we can get the answer
+
+12.the two coprime pairs are (13, 11) and (13, 12)
+
+13.converting:
+ 0o1354 = 1⋅8 ^ 3 + 3⋅8 ^ 2 + 5⋅8 ^ 1 + 4⋅8 ^ 0 = 748
+ 0o777 = 7⋅8 ^ 2 + 7⋅8 ^1 + 7⋅8 ^ 0 = 511
+
+14.The pairs that are congurent to modulo 13 are, wesub the pair then perform a modulo operation on it:
+- pair(5, 19) = 19 - 5 = 14
+  14 modulo 13 = 1
+
+- pair(13, 0) = 13 - 0 = 13
+  13 modulo 13 = 0
+
+- pair(-4, 9) = 9 -(-4) = 13
+  13 modulo 13 = 0
+
+- pair(0, 0) = 0 - 0 = 0
+13 modulo 0 = 0
+
+The pairs of numbers that are congruent with respect to modulus 13 are:
+- (13, 0)
+- (−4, 9)
+- (0, 0)
+
+15. x ≡ 4(mod6)
+x = 6k + 4
+simply numbers that when divided will remain 4
+
+16.

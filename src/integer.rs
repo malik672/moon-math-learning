@@ -1,5 +1,6 @@
 use rand::Rng;
 
+
 /// Represents an integer value.
 #[derive(Clone, Copy, Debug)]
 pub struct Integer(pub i64);
@@ -46,7 +47,7 @@ impl Integer {
         while other.0 != 0 {
             let temp = other.0;
             other.0 = self.0 % other.0;
-            other.0 = temp;
+            self.0 = temp;
         }
         Integer(self.0)
     }

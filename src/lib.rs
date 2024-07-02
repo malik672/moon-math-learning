@@ -15,5 +15,8 @@
 /// Contains neccessary methods related to an integer
 pub mod integer;
 
-/// Contains neccessary methods for 
+/// Contains neccessary methods for conversion of data type
 pub mod conversion;
+
+/// Contains methods to solve polynomial eqaution, get factors, e.t.c
+pub mod polynomial;
